@@ -1,82 +1,172 @@
-This is a JAVA library for implementing RexPayJava payment 
+# RexPayJava Library
 
-#Getting Started This JAVA library provides a wrapper to implement RexPayJava Payment to your application for Both Maven and Gradle
+The RexPayJava library provides a convenient wrapper for integrating RexPayJava payments into your Java applications.
 
-#IMPORTING LIBRARY TO YOUR PROJECT
+## Getting Started
 
-#MAVEN PROJECT
+This library supports both Maven and Gradle for easy integration into your projects.
 
-This library can be implemented into your application by importing it.
+### Maven Project
 
-Download RexPayJava.zip from  https://github.com/accelerex-developer/RexPayJava/raw/master/RexPayJava.zip extract the file and copy it to your project folder
+To add the RexPayJava library to your Maven project:
 
-procedure to Add a jar file as a Module to your Java project:
+1.  Download the RexpayLibrary.rar file from [here](https://github.com/accelerex-developer/RexPayJava/raw/main/RexpayLibrary.rar).
+2.  Extract the RexpayLibrary.jar file from the downloaded zip file.
+3.  Copy the RexpayLibrary.jar file into your project directory.
+4.  Add the jar file as a module to your Java project:
+    -   For IntelliJ IDEA:
+        -   Navigate to `File` -> `Project Structure`.
+        -   Click on `Libraries` and then the `+` sign.
+        -   Select `Java` and choose the RexpayLibrary.jar file from the directory where you copied it.
+        -   Click `OK` and then `Apply`.
+    -   For NetBeans:
+        -   Navigate to `Project Properties`.
+        -   Go to `Libraries` -> `Compile` and click `Add JAR/Folder`.
+        -   Select the RexpayLibrary.jar file from the directory where you copied it.   
+5. ** Add Below Dependency to pom.xml file:**
 
-  On IntelliJ IDEA: File -> Project Structure -> libraries -> Click + sign then select java ->select the RexPayJava.jar from the Directories you copy it to-> click ok and apply
+pom.xml
+```
+<dependency>  
+ <groupId>com.fasterxml.jackson.core</groupId>  
+ <artifactId>jackson-databind</artifactId>  
+ <version>2.13.4</version>  
+</dependency>  
+
+<dependency>  
+ <groupId>com.konghq</groupId>  
+ <artifactId>unirest-java</artifactId>  
+ <version>3.13.6</version>  
+</dependency>  
+
+<dependency>  
+ <groupId>com.mashape.unirest</groupId>  
+ <artifactId>unirest-java</artifactId>  
+ <version>1.4.9</version> <!-- Adjust the version as needed -->  
+</dependency>
+
+```
+
+
+### Gradle Project
+
+To add the RexPayJava library to your Gradle project, you have two options:
+
+#### Option 1
+
+1.  Download the RexpayLibrary.rarfile from [here](https://github.com/accelerex-developer/RexPayJava/raw/main/RexpayLibrary.rar).
+    
+2.  Extract the RexpayLibrary.jar file from the downloaded zip file.
+    
+3.  Create a folder named `libs` in your project module.
+    
+4.  Copy the RexpayLibrary.jar file into the `libs` folder.
+    
+5.  Add the following line to your build.gradle file's dependencies block:
+       ```
+    'implementation files('libs/RexpayLibrary.jar')'
+	'implementation 'com.konghq:unirest-java:3.13.6'
+	'implementation 'com.mashape.unirest:unirest-java:1.4.9'
+	'implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
+ 
+`6.  Reload your build.gradle file.
+    
+
+#### Option 2
+
+1.  Download the RexpayLibrary.rar file from [here](https://github.com/accelerex-developer/RexPayJava/raw/main/RexpayLibrary.rar).
+    
+2.  Extract the RexpayLibrary.jar file from the downloaded zip file.
+    
+3.  Create a folder named `libs` in your project module.
+    
+4.  Copy the RexpayLibrary.jar file into the `libs` folder.
+    
+5.  Add the following line to your build.gradle file's dependencies block:
+    ```
+    'implementation files('libs/RexpayLibrary.jar')'
+	'implementation 'com.konghq:unirest-java:3.13.6'
+	'implementation 'com.mashape.unirest:unirest-java:1.4.9'
+	'implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
+ 
+6.  Ensure to only use one of the options, not both.
+7. Reload your build.gradle file.
+
+
+# Usage
+
+## Creating a Payment
+To create a payment, use the following method:
+initialize Payment class 
+
+Payment payment = new Payment();
+also initialize CreatePaymentRequestDto to build your request
+CreatePaymentRequestDto request = new CreatePaymentRequestDto();
+call the creatpament method and pass the necessary information.
+CreateRequestResponse res = payment.createPayment(request, username, password);
+Replace the placeholders with your actual data. 
+For test purposes, use `"Test"`  as the mode and "production" for live.
+#### Example
+
+ 
+
+      ###Request
+        Payment payment = new Payment();
+            CreatePaymentRequestDto requestDto = CreatePaymentRequestDto.builder()  
+                  .amount(10.0)  
+                  .callbackUrl("www.google.com")  
+                  .customerName("faymos")  
+                  .email("awoyeyetimilehin@gmail.com")  
+                  .mode("test")  
+                  .referenceNumber("sm23oyr1122")  
+                  .userId("awoyeyetimilehin@gmail.com")  
+                  .build();  
+          
+        CreateRequestResponse response = payment.createPayment(requestDto,  
+          "talk2phasahsyyahoocom",  
+         "f0bedbea93df09264a4f09a6b38de6e9b924b6cb92bf4a0c07ce46f26f85");
   
-  On Netbeans: Project properties -> Libraries -> Compile -> ADD JAR/folder -> Add Jar
+  
+
+    Sample Response:
+        {
+            "reference": "sm23oyr1122",
+            "clientId": "talk2phasahsyyahoocom",
+            "paymentUrl": "https://checkout-dev.globalaccelerex.com/pay/170506013zAoMmvkMu",
+            "status": "ONGOING",
+            "paymentChannel": "CARD",
+            "paymentUrlReference": "170506013zAoMmvkMu",
+            "externalPaymentReference": "170506013zAoMmvkMu",
+            "fees": 0.03,
+            "currency": "NGN"
+        }
 
 
+## Checking Transaction Status
 
-  #GRADLE PROJECT
-
-This library can be implemented into your application by importing it.
-
-#Option 1
-
-Download RexPayJava.zip from  https://github.com/accelerex-developer/RexPayJava/raw/master/RexPayJava.zip  and Extract the RexPayJava.jar file
-create a folder name libs in your project module
-copy the RexPayJava.jar file you extracted to the libs folder you created
-add implementation fileTree(include: ['*.jar'], dir: 'libs') to your build.gradle dependencies (note: only add that line once, if already in your project, don't add it again)
-reload your build.gradle
-#Option 2
-
-Download RexPayJava.zip from  https://github.com/accelerex-developer/RexPayJava/raw/master/RexPayJava.zip and Extract the RexPayJava.jar file
-create a folder name libs in your project module
-copy the RexPayJava.jar file you extracted to the libs folder you created
-Add implementation files('libs/RexPayJava.jar')
-please only use either of the option, dont use both. option 1 will add all libraries in your libs folder while option 2 will only add the specific library
+To check the status of a transaction, use the following method:
+also initialize TransactionStatusDto to build your request
+TransactionStatusDto request = new TransactionStatusDto();
+call the transactionStatus method and pass the necessary information.
+TransactionStatusResponse res = payment.transactionStatus(request, username, password);
 
 
+### Sample Requests and Responses
 
-#USAGE
-#For Create payment Method
+#### Transaction Status Request
 
+    TransactionStatusDto transactionStatusDto = TransactionStatusDto.builder()  
+          .mode("test")  
+          .referenceNumber("sm23oyr1122")  
+          .build();  
+    TransactionStatusResponse response = payment.transactionStatus(transactionStatusDto,  
+      "talk2phasahsyyahoocom",  
+      "f0bedbea93df09264a4f09a6b38de6e9b924b6cb92bf4a0c07ce46f26f85"  
+    );` 
 
-#NOTE for test purposes use "Test" as mode and use "production" for the production environment 
+#### Response:
 
-PaymentTransaction paymentTransaction = new PaymentTransaction();
-
-ResponseData ss = paymentTransaction.createPayment( string mode, String referenceNumber, String customerName, double amount, String email, String userId, String callbackUrl, String username, String password);
-
-this method returned status of the createPayment payment, referenceNumber and Authorization URL(paymentUrl) which you will redirect your user to for payment.
-
-#For transactionStatus  Method
-
-PaymentTransaction paymentTransaction = new PaymentTransaction();
-
-JSONObject ss = paymentTransaction.transactionStatus("String mode, String referenceNumber, String username, String password);
-
-Sample Test CreatePayment request 
-transaction.createPayment("Test","sm23oyr1122","Victor Musa", 2.6,"awoyeyetimilehin@gmail.com","awoyeyetimilehin@gmail.com","www.google.com", "talk2phasahsyyahoocom","f0bedbea93df09264a4f09a6b38de6e9b924b6cb92bf4a0c07ce46f26f85");
-
-Response::::{
-    "reference": "sm23oyr1122",
-    "clientId": "talk2phasahsyyahoocom",
-    "paymentUrl": "https://checkout-dev.globalaccelerex.com/pay/170506013zAoMmvkMu",
-    "status": "ONGOING",
-    "paymentChannel": "CARD",
-    "paymentUrlReference": "170506013zAoMmvkMu",
-    "externalPaymentReference": "170506013zAoMmvkMu",
-    "fees": 0.03,
-    "currency": "NGN"
-}
-
-Sample Transaction status :
-
-paymentTransaction.transactionStatus("test","sm23oyr1122","talk2phasahsyyahoocom","f0bedbea93df09264a4f09a6b38de6e9b924b6cb92bf4a0c07ce46f26f85");
-
-Response:: {
+`{
     "amount": "2.00",
     "paymentReference": "sm23oyr1122",
     "transactionDate": "12/01/2024 11:49",
@@ -85,12 +175,4 @@ Response:: {
     "channel": "CARD",
     "responseCode": "02",
     "responseDescription": "Transaction is Pending"
-}
-
-
-
-
-
-
-
-
+}`
