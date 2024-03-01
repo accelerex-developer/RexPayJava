@@ -176,3 +176,25 @@ TransactionStatusResponse res = payment.transactionStatus(request, username, pas
     "responseCode": "02",
     "responseDescription": "Transaction is Pending"
 }`
+
+
+#
+## Parameters Details
+
+1.  **mode**: A string indicating the mode of operation, typically used for testing (`"Test"`) or production (`"Production"`). This parameter determines the environment in which the payment transaction will be processed.
+    
+2.  **referenceNumber**: A string representing a unique reference number associated with the payment transaction. This reference number is used to identify and track the payment.
+    
+3.  **customerName**: A string representing the name of the customer initiating the payment transaction. This parameter provides information about the customer associated with the payment.
+    
+4.  **amount**: A double value representing the amount of money involved in the payment transaction. This parameter specifies the monetary value of the payment to be processed.
+    
+5.  **email**: A string representing the email address of the customer initiating the payment transaction. This parameter is used to contact the customer or send notifications related to the payment.
+    
+6.  **userId**: A string representing the unique identifier of the user initiating the payment transaction. This parameter helps identify the user within the system or application.
+    
+7.  **callbackUrl**: A string representing the URL to which the payment gateway should send callback notifications or responses related to the payment transaction. This parameter is used for handling asynchronous payment responses or updates.
+    
+8.  **username**: A string representing the username or credentials required for authentication when interacting with the payment gateway or API. This parameter is used for authenticating the application or user making the payment request.
+    
+9.  **password**: A string representing the password or credentials required for authentication when interacting with the payment gateway or API. This parameter, along with the username, is used for secure authentication during the payment transaction process.
