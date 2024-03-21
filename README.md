@@ -103,9 +103,10 @@ Payment payment = new Payment();
 also initialize CreatePaymentRequestDto to build your request
 CreatePaymentRequestDto request = new CreatePaymentRequestDto();
 call the creatpament method and pass the necessary information.
-CreateRequestResponse res = payment.createPayment(request, username, password);
+get base64 of the username and password separated with fullcolon eg base64(username:password)
+CreateRequestResponse res = payment.createPayment(request, base64(username:password));
 Replace the placeholders with your actual data. 
-For test purposes, use `"Test"`  as the mode and "production" for live.
+For test purposes, use `"test"`  as the mode and "production" for live.
 #### Example
 
  
@@ -120,11 +121,13 @@ For test purposes, use `"Test"`  as the mode and "production" for live.
                   .mode("test")  
                   .referenceNumber("sm23oyr1122")  
                   .userId("awoyeyetimilehin@gmail.com")  
-                  .build();  
-          
+                  .build(); 
+		  
+          String result = "talk2phasahsyyahoocom"+":"+"f0bedbea93df09264a4f09a6b38de6e9b924b6cb92bf4a0c07ce46f26f85";
+	  String encodedString = Base64.getEncoder().encodeToString(result.getBytes());
+
         CreateRequestResponse response = payment.createPayment(requestDto,  
-          "talk2phasahsyyahoocom",  
-         "f0bedbea93df09264a4f09a6b38de6e9b924b6cb92bf4a0c07ce46f26f85");
+          encodedString);
   
   
 
@@ -148,7 +151,8 @@ To check the status of a transaction, use the following method:
 also initialize TransactionStatusDto to build your request
 TransactionStatusDto request = new TransactionStatusDto();
 call the transactionStatus method and pass the necessary information.
-TransactionStatusResponse res = payment.transactionStatus(request, username, password);
+get base64 of the username and password separated with fullcolon eg base64(username:password)
+TransactionStatusResponse res = payment.transactionStatus(request, base64(username:password));
 
 
 ### Sample Requests and Responses
@@ -159,9 +163,10 @@ TransactionStatusResponse res = payment.transactionStatus(request, username, pas
           .mode("test")  
           .referenceNumber("sm23oyr1122")  
           .build();  
+	   String result = "talk2phasahsyyahoocom"+":"+"f0bedbea93df09264a4f09a6b38de6e9b924b6cb92bf4a0c07ce46f26f85";
+	  String encodedString = Base64.getEncoder().encodeToString(result.getBytes());
     TransactionStatusResponse response = payment.transactionStatus(transactionStatusDto,  
-      "talk2phasahsyyahoocom",  
-      "f0bedbea93df09264a4f09a6b38de6e9b924b6cb92bf4a0c07ce46f26f85"  
+     encodedString
     );` 
 
 #### Response:
